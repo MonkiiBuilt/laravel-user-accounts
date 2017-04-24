@@ -6,13 +6,13 @@
  * @copyright 2008 - present, Monkii Digital Agency (http://monkii.com.au)
  */
 
-namespace MonkiiBuilt\LaravelUserAccounts;
+namespace MonkiiBuilt\LaravelUserAccounts\Controllers;
 
 
 use App\User;
 use Illuminate\Http\Request;
 
-class UserAccountsController extends \App\Controller
+class UserAccountsController extends \App\Http\Controllers\Controller
 {
     /**
      * Display a listing of the resource.
@@ -109,10 +109,10 @@ class UserAccountsController extends \App\Controller
      * @param $year
      * @return mixed
      */
-    public function data(AccountsRequest $request, $year)
+    public function data(Request $request)
     {
         if ($request->ajax()) {
-            $accounts = User::select(array('id', 'first_name', 'last_name', 'email', 'updated_at', \DB::raw("$year as 'year'")));
+            $accounts = User::select(array('id', 'first_name', 'last_name', 'email', 'updated_at'));
 
             return Datatables::of($accounts)
                 ->add_column(

@@ -67,7 +67,7 @@
         var oTable;
         $(document).ready(function() {
             oTable = $('#accounts').dataTable( {
-                "ajaxSource": "{{ route('backstage.{year}.accounts.data', [$year]) }}",
+                "ajaxSource": "{{ route('laravel-administrator-user-accounts-data') }}",
                 "autoWidth": false,
                 "aoColumnDefs": [
                     { 'bSortable': false, 'aTargets': [4] }
