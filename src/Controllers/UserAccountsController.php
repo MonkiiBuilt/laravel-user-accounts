@@ -47,11 +47,21 @@ class UserAccountsController extends \App\Http\Controllers\Controller
     {
         $data = $request->input();
 
-        $account = User::create($data);
+        $data['password'] = Hash::make($request->input('password'));
 
-        $account->save();
+        if (!empty($data)) {
 
-        return \Redirect::route('laravel-administrator-user-accounts');
+            $account = new User($data);
+
+            if ($account->save()) {
+
+                // Assign the roles
+                $account->roles()->sync($data['roles']);
+
+                return \Redirect::route('laravel-administrator-user-accounts');
+            }
+        }
+
     }
 
     /**
