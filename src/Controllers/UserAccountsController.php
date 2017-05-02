@@ -11,6 +11,7 @@ namespace MonkiiBuilt\LaravelUserAccounts\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Datatables;
 
 class UserAccountsController extends \App\Http\Controllers\Controller
 {
@@ -46,6 +47,14 @@ class UserAccountsController extends \App\Http\Controllers\Controller
     public function store(Request $request)
     {
         $data = $request->input();
+
+        $validator = $this->validator($data);
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
 
         $data['password'] = Hash::make($request->input('password'));
 
@@ -122,22 +131,36 @@ class UserAccountsController extends \App\Http\Controllers\Controller
     public function data(Request $request)
     {
         if ($request->ajax()) {
-            $accounts = User::select(array('id', 'first_name', 'last_name', 'email', 'updated_at'));
+            $accounts = User::select(array('id', 'name', 'email', 'updated_at'));
 
             return Datatables::of($accounts)
                 ->add_column(
                     'actions',
                     '<a title="Edit" href="{{{ URL::route(\'laravel-administrator-user-accounts-edit\', [\'id\' => $id]) }}}">Edit</a>' .
-                    '{!! Form::open(array(\'route\' => [\'laravel-administrator-user-accounts-delete\', $id], \'class\' => \'plain  confirm\')) !!}' .
+                    '{!! Form::open(array(\'route\' => [\'laravel-administrator-user-accounts-destroy\', $id], \'class\' => \'plain  confirm\')) !!}' .
                     '{!! Form::hidden(\'_method\', \'DELETE\') !!}' .
                     '<button type="submit">Delete</button>' .
                     '{!! Form::close() !!}'
                 )
                 ->remove_column('id')
-                ->remove_column('year')
                 ->make();
         }
 
         abort(404, 'Page not found');
+    }
+
+    /**
+     * Get a validator for account creation
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return \Validator::make($data, [
+            'name' => 'required|alpha|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed',
+        ]);
     }
 }

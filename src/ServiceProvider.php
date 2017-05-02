@@ -19,10 +19,16 @@ class ServiceProvider extends BaseServiceProvider
      */
     protected $defer = false;
 
-    public function boot()
+    public function boot(\MonkiiBuilt\LaravelAdministrator\PackageRegistry $packageRegistry)
     {
+        $packageRegistry->registerConfig(config_path() . '/laravel-administrator/laravel-administrator-user-accounts.php');
+
         $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'user-accounts');
+
+        $this->publishes([
+            __DIR__. '/../config/laravel-administrator-user-accounts.php' => config_path('/laravel-administrator/laravel-administrator-user-accounts.php')
+        ], 'administrator-user-accounts-config');
     }
 }

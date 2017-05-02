@@ -39,10 +39,10 @@
         <table id="accounts" class="table table-striped table-hover">
             <thead>
             <tr>
-                <th style="width:25%">Name</th>
-                <th style="width:25%;">Email</th>
-                <th style="width:25%;">Updated At</th>
-                <th style="width:25%;">Actions</th>
+                <th style="width:20%">Name</th>
+                <th style="width:20%">Email</th>
+                <th style="width:20%">Updated At</th>
+                <th style="width:20%">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -66,11 +66,11 @@
     <script type="text/javascript">
         var oTable;
         $(document).ready(function() {
-            oTable = $('#accounts').dataTable( {
+            oTable = $('#accounts').dataTable({
                 "ajaxSource": "{{ route('laravel-administrator-user-accounts-data') }}",
                 "autoWidth": false,
                 "aoColumnDefs": [
-                    { 'bSortable': false, 'aTargets': [4] }
+                    { 'bSortable': false, 'aTargets': [3] }
                 ],
                 "aaSorting": [[ 3, "desc" ]],
                 "language": {
