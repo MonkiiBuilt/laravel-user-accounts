@@ -12,7 +12,11 @@ return [
         'main' => [
             'laravel-administrator-user-accounts' => [
                 'label' => 'Users',
-                'classes' => []
+                'classes' => [],
+                'children' => [
+                    'laravel-administrator-user-accounts-create',
+                    'laravel-administrator-user-accounts-edit',
+                ]
             ]
         ]
     ]
