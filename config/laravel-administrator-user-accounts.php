@@ -10,9 +10,10 @@
 return [
     'menu' => [
         'main' => [
-            'laravel-administrator-user-accounts' => 'Users',
+            'laravel-administrator-user-accounts' => [
+                'label' => 'Users',
+                'classes' => []
+            ]
         ]
     ]
 ];
-
-
