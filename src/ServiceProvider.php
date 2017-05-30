@@ -21,7 +21,7 @@ class ServiceProvider extends BaseServiceProvider
 
     public function boot(\MonkiiBuilt\LaravelAdministrator\PackageRegistry $packageRegistry)
     {
-        $packageRegistry->registerConfig(config_path() . '/laravel-administrator/laravel-administrator-user-accounts.php');
+        $packageRegistry->registerPackage('MonkiiBuilt\LaravelUserAccounts');
 
         $this->loadRoutesFrom(__DIR__.'/routes.php');
 
