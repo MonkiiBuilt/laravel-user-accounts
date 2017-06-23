@@ -1,6 +1,6 @@
 <?php
 /**
- * @author Jonathon Wallen
+ * @author Jonathon Wallen <jonathon@monkii.com>
  * @date 24/4/17
  * @time 11:13 AM
  * @copyright 2008 - present, Monkii Digital Agency (http://monkii.com.au)
@@ -8,13 +8,26 @@
 
 namespace MonkiiBuilt\LaravelUserAccounts\Controllers;
 
-
-use App\User;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Http\Request;
-use Datatables;
+use Yajra\Datatables\Datatables;
+use MonkiiBuilt\LaravelUserAccounts\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class UserAccountsController extends \App\Http\Controllers\Controller
 {
+    private static $User;
+
+    /**
+     * Get a reference to wherever the user model is.
+     *
+     * UserAccountsController constructor.
+     */
+    public function __construct()
+    {
+        static::$User = Config::get('laravel-administrator.laravel-administrator-user-accounts.user_model');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,8 +35,7 @@ class UserAccountsController extends \App\Http\Controllers\Controller
      */
     public function index()
     {
-        $accounts = User::all();
-
+        $accounts = static::$User::all();
         return view('user-accounts::admin.index', ['accounts' => $accounts]);
     }
 
@@ -34,8 +46,8 @@ class UserAccountsController extends \App\Http\Controllers\Controller
      */
     public function create()
     {
-        //
-        return view('user-accounts::admin.create');
+        $roles = Role::select('id', 'display_name')->orderBy('id', 'desc')->pluck('display_name', 'id')->toArray();
+        return view('user-accounts::admin.create', ['roles' => $roles]);
     }
 
     /**
@@ -60,7 +72,7 @@ class UserAccountsController extends \App\Http\Controllers\Controller
 
         if (!empty($data)) {
 
-            $account = new User($data);
+            $account = new static::$User($data);
 
             if ($account->save()) {
 
@@ -81,9 +93,19 @@ class UserAccountsController extends \App\Http\Controllers\Controller
      */
     public function edit($id)
     {
-        $account = User::findOrFail($id);
+        $account = static::$User::findOrFail($id);
+        $roles = Role::select('id', 'display_name')->orderBy('id', 'desc')->pluck('display_name', 'id')->toArray();
+        $userRoles = $account->roles->toArray();
+        $userRoleIds = array();
+        foreach ($userRoles as $role) {
+            $userRoleIds[] = $role['id'];
+        }
 
-        return view('user-accounts::admin.create', ['account' => $account]);
+        return view('user-accounts::admin.edit', [
+            'account' => $account,
+            'roles' => $roles,
+            'userRoleIds' => $userRoleIds,
+        ]);
     }
 
     /**
@@ -95,7 +117,7 @@ class UserAccountsController extends \App\Http\Controllers\Controller
      */
     public function update(Request $request, $id)
     {
-        $account = User::findOrFail($id);
+        $account = static::$User::findOrFail($id);
 
         $data = $request->input();
 
@@ -114,7 +136,7 @@ class UserAccountsController extends \App\Http\Controllers\Controller
      */
     public function destroy($id)
     {
-        $account = User::findOrFail($id);
+        $account = static::$User::findOrFail($id);
 
         $account->delete();
 
@@ -131,7 +153,7 @@ class UserAccountsController extends \App\Http\Controllers\Controller
     public function data(Request $request)
     {
         if ($request->ajax()) {
-            $accounts = User::select(array('id', 'name', 'email', 'updated_at'));
+            $accounts = static::$User::select(array('id', 'name', 'email', 'updated_at'));
 
             return Datatables::of($accounts)
                 ->add_column(

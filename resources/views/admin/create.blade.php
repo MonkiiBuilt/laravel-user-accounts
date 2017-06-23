@@ -6,7 +6,7 @@
  * @copyright 2008 - present, Monkii Digital Agency (http://monkii.com.au)
  */
 ?>
-@extends('laravel-administrator.layout')
+@extends('vendor/laravel-administrator.layout')
 
 @section('title', 'User Accounts')
 
@@ -43,6 +43,8 @@
                     </fieldset>
                 </div>
             </div>
+
+            @include('user-accounts::admin.permissions')
 
         </div>
     </div>

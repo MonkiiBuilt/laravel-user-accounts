@@ -9,6 +9,10 @@
     "autoload": {
         "psr-0" : {
             "MonkiiBuilt\\LaravelUserAccounts" : "src"
-        }
+        },
+        "classmap": [
+            "MonkiiBuilt\\LaravelUserAccounts\\Models",
+            "MonkiiBuilt\\LaravelUserAccounts\\Seeds",
+        ]
     }
 }
