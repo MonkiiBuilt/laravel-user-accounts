@@ -12,7 +12,7 @@
         },
         "classmap": [
             "MonkiiBuilt\\LaravelUserAccounts\\Models",
-            "MonkiiBuilt\\LaravelUserAccounts\\Seeds",
+            "MonkiiBuilt\\LaravelUserAccounts\\Seeds"
         ]
     }
 }

@@ -17,6 +17,11 @@ return [
                     'laravel-administrator-user-accounts-create',
                     'laravel-administrator-user-accounts-edit',
                 ]
+            ],
+            'laravel-administrator-permissions' => [
+                'label' => 'Permissions',
+                'classes' => [],
+                'children' => []
             ]
         ]
     ],
