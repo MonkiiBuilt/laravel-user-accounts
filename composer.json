@@ -1,14 +1,15 @@
 {
-    "name": "laravel-user-accounts",
-    "version": "0.0.1",
+    "name": "monkiibuilt/laravel-user-accounts",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.4.*",
+        "laravel/framework": "^5.5",
         "yajra/laravel-datatables-oracle": "~6.0"
     },
     "autoload": {
-        "psr-0" : {
-            "MonkiiBuilt\\LaravelUserAccounts" : "src"
+        "psr-4": {
+            "MonkiiBuilt\\LaravelUserAccounts\\": "src"
         }
-    }
+    },
+    "description": "Admin user account package",
+    "license": "proprietary"
 }

@@ -6,7 +6,7 @@
  * @copyright 2008 - present, Monkii Digital Agency (http://monkii.com.au)
  */
 ?>
-@extends('vendor/laravel-administrator.layout')
+@extends('vendor.laravel-administrator.layout')
 
 @section('title', 'User Accounts')
 
@@ -46,6 +46,14 @@
             </tr>
             </thead>
             <tbody>
+            @foreach($accounts as $account)
+                <tr>
+                    <td>{{ $account->name }}</td>
+                    <td>{{ $account->email }}</td>
+                    <td>{{ $account->updated_at }}</td>
+                    <td></td>
+                </tr>
+            @endforeach()
             </tbody>
         </table>
 
