@@ -10,6 +10,13 @@
             "MonkiiBuilt\\LaravelUserAccounts\\": "src"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MonkiiBuilt\\LaravelUserAccounts\\ServiceProvider"
+            ]
+        }
+    },
     "description": "Admin user account package",
     "license": "proprietary"
 }
