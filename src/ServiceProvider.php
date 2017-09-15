@@ -29,6 +29,7 @@ class ServiceProvider extends BaseServiceProvider
 
         $this->publishes([
             __DIR__. '/../config/laravel-administrator-user-accounts.php' => config_path('/laravel-administrator/laravel-administrator-user-accounts.php')
-        ], 'administrator-user-accounts-config');
+        ], 'administrator-user-accounts-config'
+        );
     }
 }

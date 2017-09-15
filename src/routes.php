@@ -21,4 +21,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'MonkiiBuilt\LaravelUserAccoun
     Route::put('users/{id}', ['as' => 'laravel-administrator-user-accounts-put', 'uses' => 'Controllers\UserAccountsController@update']);
 
     Route::delete('users/{id}', ['as' => 'laravel-administrator-user-accounts-destroy', 'uses' => 'Controllers\UserAccountsController@destroy']);
+
+    Route::get('permissions', ['as' => 'laravel-administrator-permissions', 'uses' => 'Controllers\PermissionsController@index']);
+
+    Route::post('permissions', ['as' => 'laravel-administrator-permissions-post', 'uses' => 'Controllers\PermissionsController@store']);
 });
