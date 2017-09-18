@@ -25,7 +25,7 @@ class UserAccountsController extends \App\Http\Controllers\Controller
      */
     public function __construct()
     {
-        static::$User = Config::get('laravel-administrator.laravel-administrator-user-accounts.user_model');
+        static::$User = Config::get('laravel-administrator.user_model');
     }
 
     /**
